@@ -46,6 +46,7 @@ body * {
 
 .hide {
   display: none;
+  visibility: hidden;
 }
 
 #app {
@@ -77,6 +78,7 @@ header {
   color: white;
 }
 .search button {
+  position: relative;
   gap: 8px;
   width: clamp(8rem, 9rem + 5vw, 17rem);
   height: 4.8rem;
