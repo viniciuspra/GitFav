@@ -1,6 +1,6 @@
-import { GithubUser } from './GithubUser.js'
+import { GithubUser } from "./GithubUser.js"
 
-class Favorites {
+export class Favorites {
   constructor(root) {
     this.root = document.querySelector(root)
     this.load()
@@ -43,17 +43,18 @@ class Favorites {
   }
 }
 
-export class FavoriteViews extends Favorites {
+export class FavoritesView extends Favorites {
   constructor(root) {
     super(root)
 
-    console.log(this.root)
     this.tbody = this.root.querySelector("table tbody")
     this.update()
     this.onadd()
   }
 
   onadd() {
+    this.updateTableVisibility()
+
     const addButton = this.root.querySelector(".search button")
     const input = this.root.querySelector(".search input")
 
@@ -72,18 +73,8 @@ export class FavoriteViews extends Favorites {
     })
   }
 
-  updateTableVisibility() {
-    this.empty = this.root.querySelector(".empty")
-    if (this.tbody.children.length === 0) {
-      this.tbody.classList.add("hide")
-      this.empty.classList.remove("hide")
-    } else {
-      this.tbody.classList.remove("hide")
-      this.empty.classList.add("hide")
-    }
-  }
-
   update() {
+    this.removeAllTr()
     this.entries.forEach((user) => {
       const row = this.createRow()
 
@@ -110,6 +101,17 @@ export class FavoriteViews extends Favorites {
     })
   }
 
+  updateTableVisibility() {
+    this.empty = this.root.querySelector(".empty")
+    if (this.tbody.children.length === 0) {
+      this.tbody.classList.add("hide")
+      this.empty.classList.remove("hide")
+    } else {
+      this.tbody.classList.remove("hide")
+      this.empty.classList.add("hide")
+    }
+  }
+
   createRow() {
     const tr = document.createElement("tr")
 
@@ -131,6 +133,13 @@ export class FavoriteViews extends Favorites {
           <button class="remove">Remover</button>
         </td>
         `
+
     return tr
+  }
+
+  removeAllTr() {
+    this.tbody.querySelectorAll("tr").forEach((tr) => {
+      tr.remove()
+    })
   }
 }
