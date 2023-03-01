@@ -53,8 +53,6 @@ export class FavoritesView extends Favorites {
   }
 
   onadd() {
-    this.updateTableVisibility()
-
     const addButton = this.root.querySelector(".search button")
     const input = this.root.querySelector(".search input")
 
@@ -99,16 +97,12 @@ export class FavoritesView extends Favorites {
 
       this.tbody.append(row)
     })
-  }
-
-  updateTableVisibility() {
-    this.empty = this.root.querySelector(".empty")
-    if (this.tbody.children.length === 0) {
-      this.tbody.classList.add("hide")
-      this.empty.classList.remove("hide")
+    
+    const emptyDiv = this.root.querySelector(".empty")
+    if (this.entries.length === 0) {
+      emptyDiv.style.display = "flex"
     } else {
-      this.tbody.classList.remove("hide")
-      this.empty.classList.add("hide")
+      emptyDiv.style.display = "none"
     }
   }
 
